@@ -20,6 +20,12 @@ Route::get('/', function () {
     return view('public.index', compact('posts'));
 })->name('public.home');
 
+//categori
+Route::get('/admin/categories', \App\Livewire\Admin\CategoryIndex::class)
+    ->middleware('auth')
+    ->name('admin.categories');
+
+
 // Rute detail artikel
 Route::get('/posts/{slug}', function ($slug) {
     $post = Post::where('slug', $slug)->firstOrFail();
@@ -36,6 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/posts/create', PostForm::class)->name('admin.posts.create');
     Route::get('/admin/posts/edit/{id}', PostForm::class)->name('admin.posts.edit'); // tambahkan juga edit
 });
+
+//admin dashboard
+Route::get('/admin/dashboard', \App\Livewire\Admin\Dashboard::class)
+    ->name('admin.dashboard')
+    ->middleware('auth');
+
 
 // Rute autentikasi (dari Laravel Breeze/Fortify)
 require __DIR__ . '/auth.php';

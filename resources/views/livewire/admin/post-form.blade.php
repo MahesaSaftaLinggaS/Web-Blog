@@ -12,17 +12,30 @@
 
     {{-- Formulir artikel --}}
     <form wire:submit.prevent="save" enctype="multipart/form-data" class="space-y-4">
+
+        {{-- Dropdown Kategori --}}
+        <div>
+            <label class="block text-sm font-medium">Kategori</label>
+            <select wire:model="category_id" class="w-full p-2 border rounded">
+                <option value="">-- Pilih Kategori --</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
         {{-- Judul --}}
         <div>
             <label class="block text-sm font-medium">Judul</label>
-            <input type="text" wire:model.defer="title" class="w-full p-2 border rounded" />
+            <input type="text" wire:model.defer="title" class="w-full p-2 border rounded" required autocomplete="off" />
             @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        {{-- Isi konten --}}
+        {{-- Konten --}}
         <div>
             <label class="block text-sm font-medium">Isi</label>
-            <textarea wire:model.defer="content" class="w-full p-2 border rounded" rows="6"></textarea>
+            <textarea wire:model.defer="content" class="w-full p-2 border rounded" rows="6" required></textarea>
             @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
@@ -32,7 +45,7 @@
             <input type="file" wire:model="image" class="w-full p-2 border rounded" />
             @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-            {{-- Preview gambar sementara --}}
+            {{-- Preview --}}
             @if ($image)
                 <img src="{{ $image->temporaryUrl() }}" class="w-40 mt-4 rounded shadow" alt="Preview" />
             @elseif ($oldImage)
@@ -40,7 +53,7 @@
             @endif
         </div>
 
-        {{-- Tombol simpan --}}
+        {{-- Tombol --}}
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
             Simpan
         </button>
