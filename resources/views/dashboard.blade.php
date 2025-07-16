@@ -14,4 +14,10 @@
             </div>
         </div>
     </div>
+
+    <h2 class="text-xl font-bold mb-4 mt-10">Statistik Artikel per Bulan</h2>
+    <div class="bg-white rounded shadow p-4">
+        <canvas id="postChart" width="400" height="150"></canvas>
+    </div>
+
 </x-app-layout>

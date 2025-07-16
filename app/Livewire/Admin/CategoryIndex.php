@@ -50,4 +50,9 @@ class CategoryIndex extends Component
                 ->paginate(10)
         ]);
     }
+
+    public function posts()
+{
+    return $this->hasMany(\App\Models\Post::class);
+}
 }

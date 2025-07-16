@@ -39,16 +39,14 @@
     </nav>
 
     <!-- Main content -->
-<main class="min-h-screen p-6">
-    @hasSection('content')
+    <main class="min-h-screen p-6">
+        @hasSection('content')
         @yield('content')
-    @else
+        @else
         {{ $slot }}
-    @endif
-</main>
-
-
-
+        @endif
+    </main>
+    @stack('scripts')
     @livewireScripts
 </body>
 
